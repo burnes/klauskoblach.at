@@ -1,0 +1,137 @@
+@font-face {
+    font-family: 'Autobahn';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Autobahn'), url('./assets/Autobahn.woff') format('woff')
+}
+
+h1 {
+    font-size: 44px;
+}
+
+h2 {
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(40, 40, 42, 0.5);
+}
+
+h3 {
+    font-size: 18px;
+}
+
+body {
+    max-width: 768px;
+	margin: 0 auto !important;
+	float: none !important;
+    background-color: #00439c;
+    color: #e2e2d8;
+    font-family: 'Autobahn', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.content {
+    margin: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header h1 {
+    margin: 0;
+    letter-spacing: 0.05em;
+    height: 50px;
+    text-shadow: 2px 2px 4px rgba(40, 40, 42, 0.5);
+}
+
+.kklogo {
+    height: 38px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px rgba(40, 40, 42, 0.5);
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 32px;
+    }
+}
+
+.full-width-img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 2px 2px 4px rgba(40, 40, 42, 0.5);
+}
+
+.info {
+    text-align: center;
+    background-color: #fff;
+    color: #00439c;
+    border: 8px solid #e2e2d8;
+    border-radius: 12px;
+    font-size: 24px;
+    box-shadow: 2px 2px 4px rgba(40, 40, 42, 0.5);
+    padding: 0 12px;
+}
+
+.band {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+@media (max-width: 768px) {
+    .band {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+.member {
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(40, 40, 42, 0.5);
+}
+
+.member h3 {
+    margin: 0;
+}
+
+.member img {
+    max-width: 230px;
+    width: 100%;
+    filter: grayscale(100%);
+    border-radius: 12px;
+    box-shadow: 2px 2px 4px rgba(40, 40, 42, 0.5);
+}
+
+.member img:hover {
+    filter: grayscale(0%);
+}
+
+.social-links {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    bottom: 8px;
+    right: 8px;
+}
+
+.social-links img {
+    height: 42px;
+}
+
+.contact {
+    text-align: center;
+    margin: 0;
+}
+
+.contact a {
+    color: #e2e2d8;
+    text-decoration: none;
+}
