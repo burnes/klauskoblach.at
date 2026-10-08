@@ -1,0 +1,190 @@
+/* Shattered-glass + yellowed-poster layer. Adds no layout: only overlays,
+   pseudo-elements, filters and colour on existing elements. */
+
+:root {
+  /* Yellowed instead of white text */
+  --fg: #e2d2a2;
+  --muted: #968a6c;
+  --rule: rgba(226, 210, 162, 0.14);
+  --paper: #d8c48e;
+  --paper-edge: #a8874a;
+  --ink: #2b2216;
+  --paper-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0 0.1 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --paper-stains:
+    radial-gradient(ellipse 40% 30% at 82% 18%, rgba(140, 95, 30, 0.35), transparent 70%),
+    radial-gradient(ellipse 30% 45% at 12% 78%, rgba(120, 80, 25, 0.3), transparent 70%),
+    radial-gradient(circle at 60% 70%, rgba(150, 110, 40, 0.18) 0 6%, transparent 7%),
+    radial-gradient(ellipse 120% 120% at 50% 50%, transparent 55%, rgba(110, 70, 20, 0.55) 100%);
+}
+
+/* Cracked pane in front of the whole page */
+.shatter {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.shatter .crack {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.shatter .crack-shadow {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.75);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+.shatter .shard {
+  mix-blend-mode: screen;
+}
+
+/* Yellowed poster: the dialect text */
+.dialect p {
+  position: relative;
+  isolation: isolate;
+  color: var(--ink);
+  font-weight: 500;
+  transform: rotate(-0.8deg);
+}
+
+.dialect p::before {
+  content: '';
+  position: absolute;
+  inset: -1.75rem -1.5rem;
+  z-index: -1;
+  background: var(--paper-noise), var(--paper-stains), var(--paper);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  clip-path: polygon(0 2%, 4% 0, 18% 1%, 31% 0, 47% 2%, 63% 0, 79% 1%, 96% 0, 100% 3%,
+    99% 22%, 100% 47%, 98% 70%, 100% 94%, 97% 100%, 75% 98%, 52% 100%, 28% 99%, 6% 100%,
+    0 97%, 1% 71%, 0 44%, 2% 20%);
+}
+
+/* Strip of tape holding the poster */
+.dialect p::after {
+  content: '';
+  position: absolute;
+  top: -2.4rem;
+  left: 50%;
+  width: 7rem;
+  height: 1.6rem;
+  transform: translateX(-50%) rotate(3deg);
+  background: rgba(235, 228, 200, 0.45);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* Yellowed poster: contact note */
+.contact-block {
+  position: relative;
+  isolation: isolate;
+  color: var(--ink);
+  width: max-content;
+  max-width: 100%;
+  transform: rotate(1.2deg);
+}
+
+.contact-block::before {
+  content: '';
+  position: absolute;
+  inset: -1.25rem -1.5rem;
+  z-index: -1;
+  background: var(--paper-noise), var(--paper-stains), #cfb87c;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+  clip-path: polygon(0 4%, 9% 0, 33% 2%, 58% 0, 84% 2%, 100% 0, 98% 30%, 100% 62%, 99% 100%,
+    70% 97%, 41% 100%, 14% 98%, 0 100%, 2% 66%, 0 35%);
+}
+
+/* Faded print: EP cover */
+.release-cover {
+  position: relative;
+}
+
+.release-cover img {
+  filter: sepia(0.6) saturate(0.7) contrast(0.88) brightness(1.04);
+}
+
+.release-cover::after,
+.break::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    var(--paper-noise),
+    linear-gradient(90deg, transparent 49.6%, rgba(255, 245, 210, 0.35) 50%, rgba(60, 40, 10, 0.25) 50.4%, transparent 51%),
+    linear-gradient(0deg, transparent 49.6%, rgba(255, 245, 210, 0.3) 50%, rgba(60, 40, 10, 0.2) 50.4%, transparent 51%),
+    var(--paper-stains),
+    rgba(216, 190, 120, 0.35);
+  mix-blend-mode: multiply;
+}
+
+/* Faded print: hero photo (overlay covers the image only, with the same fade-out) */
+.hero-image {
+  filter: grayscale(100%) sepia(0.7) contrast(0.95) brightness(1.02);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  aspect-ratio: 1 / 1;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    var(--paper-noise),
+    linear-gradient(90deg, transparent 49.8%, rgba(255, 245, 210, 0.3) 50%, rgba(60, 40, 10, 0.22) 50.2%, transparent 50.4%),
+    var(--paper-stains),
+    rgba(216, 190, 120, 0.3);
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+}
+
+/* Faded prints: lineup portraits */
+.member {
+  position: relative;
+}
+
+.member img {
+  filter: grayscale(100%) sepia(0.7) contrast(0.92) brightness(1.02);
+}
+
+.member:hover img,
+.member:focus-within img {
+  filter: sepia(0.45) saturate(0.8) contrast(0.92);
+}
+
+.member::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  aspect-ratio: 4 / 7;
+  pointer-events: none;
+  background: var(--paper-noise), var(--paper-stains), rgba(216, 190, 120, 0.35);
+  mix-blend-mode: multiply;
+}
+
+/* Faded print: band photo between lineup and dialect */
+.break {
+  position: relative;
+}
+
+.break img {
+  filter: grayscale(100%) sepia(0.7) contrast(0.92) brightness(1.02);
+}
+
+.break:hover img,
+.break:focus-within img {
+  filter: sepia(0.45) saturate(0.8) contrast(0.92);
+}
